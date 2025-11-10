@@ -9,7 +9,8 @@ internal class ScaleInTransformer(
     private var minScaleX: Float = 0.675f,
     private var minScaleY: Float = minScaleX,
     private var centerScaleX: Float = minScaleX * 1.5f,
-    private var centerScaleY: Float = minScaleY * 1.5f
+    private var centerScaleY: Float = minScaleY * 1.5f,
+    private val scalePivotType: ScalePivotType = ScalePivotType.CENTER
 ) : ViewPager2.PageTransformer {
 
     constructor(minScale: Float) : this(minScale, minScale, minScale * 1.5f, minScale * 1.5f)
@@ -41,15 +42,23 @@ internal class ScaleInTransformer(
         view.scaleY = 1f
 
         var deltaX = 0f
-        var deltaY = 0f
+        var topShift = 0f
+        var bottomShift = 0f
+        val pivotFractionY = when (scalePivotType) {
+            ScalePivotType.CENTER -> 0.5f
+            ScalePivotType.TOP -> 1f
+        }
         banner?.let {
             val width = it.width
             val height = it.height
             if (width != 0 && height != 0) {
                 it.pivotX = width * 0.5f
-                it.pivotY = height * 0.5f
+                val pivotY = height * pivotFractionY
+                it.pivotY = pivotY
                 deltaX = (scaleX - 1f) * width / 2f
-                deltaY = (scaleY - 1f) * height / 2f
+                val scaleDelta = 1f - scaleY
+                topShift = pivotY * scaleDelta
+                bottomShift = (pivotY - height) * scaleDelta
             }
             it.scaleX = scaleX
             it.scaleY = scaleY
@@ -61,7 +70,7 @@ internal class ScaleInTransformer(
             it.scaleX = 1f
             it.scaleY = 1f
             it.translationX = -deltaX
-            it.translationY = -deltaY
+            it.translationY = topShift
         }
 
         bottom?.let {
@@ -74,7 +83,7 @@ internal class ScaleInTransformer(
             it.scaleX = scaleX
             it.scaleY = 1f
             it.translationX = 0f
-            it.translationY = deltaY
+            it.translationY = bottomShift
 
             val viewGroup = it as? ViewGroup
             viewGroup?.let { group ->

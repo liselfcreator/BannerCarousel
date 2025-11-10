@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.liselfcreator.bannercarousel.BannerCarouselView
 import com.liselfcreator.bannercarousel.BannerImageLoader
 import com.liselfcreator.bannercarousel.BannerModel
+import com.liselfcreator.bannercarousel.ScalePivotType
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bannerCarouselView: BannerCarouselView
@@ -31,12 +32,9 @@ class MainActivity : AppCompatActivity() {
 
         bannerCarouselView.setup {
             setData(bannerList)
-            showStatus(false)
-            showBottom(false)
-            setItemSpacingDp(5)
-            setEdgeVisibleFraction(0.6f)
-            setItemAspectRatio("9:16")
-            setCenterScaleFactor(2f)
+            showStatus(true)
+            showBottom(true)
+            setScalePivot(ScalePivotType.TOP)
             setImageLoader(BannerImageLoader { imageView, url, placeholder ->
                 Glide.with(imageView)
                     .load(url)

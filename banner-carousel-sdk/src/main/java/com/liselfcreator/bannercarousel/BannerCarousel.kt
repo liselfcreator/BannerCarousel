@@ -65,7 +65,17 @@ class BannerCarouselView @JvmOverloads constructor(
         val centerHeight = (centerWidthFloat / config.aspectRatio.width * config.aspectRatio.height).roundToInt()
             .coerceAtLeast(normalHeight)
 
-        val verticalPadding = ((centerHeight - normalHeight) / 2f).roundToInt().coerceAtLeast(0)
+        val heightDiff = (centerHeight - normalHeight).coerceAtLeast(0)
+        val paddingTop: Int
+        val paddingBottom: Int
+        if (config.scalePivot == ScalePivotType.TOP) {
+            paddingTop = heightDiff
+            paddingBottom = 0
+        } else {
+            val halfPadding = (heightDiff / 2f).roundToInt()
+            paddingTop = halfPadding
+            paddingBottom = (heightDiff - halfPadding).coerceAtLeast(0)
+        }
         val horizontalPadding = ((screenWidth - normalWidth).toFloat() / 2f).roundToInt().coerceAtLeast(0)
 
         viewPager2.offscreenPageLimit = 2
@@ -83,7 +93,7 @@ class BannerCarouselView @JvmOverloads constructor(
             clipChildren = false
             isNestedScrollingEnabled = false
             overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-            setPadding(horizontalPadding, verticalPadding, horizontalPadding, verticalPadding)
+            setPadding(horizontalPadding, paddingTop, horizontalPadding, paddingBottom)
             layoutParams = layoutParams?.apply { height = centerHeight }
         }
 
@@ -97,7 +107,15 @@ class BannerCarouselView @JvmOverloads constructor(
 
         val compositeTransformer = CompositePageTransformer().apply {
             addTransformer(MarginPageTransformer(spacingPx))
-            addTransformer(ScaleInTransformer(1.0f, 1.0f, config.centerScaleFactor, config.centerScaleFactor))
+            addTransformer(
+                ScaleInTransformer(
+                    minScaleX = 1.0f,
+                    minScaleY = 1.0f,
+                    centerScaleX = config.centerScaleFactor,
+                    centerScaleY = config.centerScaleFactor,
+                    scalePivotType = config.scalePivot
+                )
+            )
         }
         viewPager2.setPageTransformer(compositeTransformer)
 
@@ -152,6 +170,7 @@ class BannerCarouselView @JvmOverloads constructor(
         val edgeVisibleFraction: Float,
         val centerScaleFactor: Float,
         val aspectRatio: AspectRatio,
+        val scalePivot: ScalePivotType,
         val imageLoader: BannerImageLoader,
         val onItemClickListener: ((Int, BannerModel) -> Unit)?,
         val onPageChangeListener: ((Int, BannerModel) -> Unit)?
@@ -165,6 +184,7 @@ class BannerCarouselView @JvmOverloads constructor(
         private var edgeVisibleFraction: Float = 0.2f
         private var centerScaleFactor: Float = 1.8f
         private var aspectRatio: String = "3:4"
+        private var scalePivot: ScalePivotType = ScalePivotType.CENTER
         private var imageLoader: BannerImageLoader? = null
         private var onItemClickListener: ((Int, BannerModel) -> Unit)? = null
         private var onPageChangeListener: ((Int, BannerModel) -> Unit)? = null
@@ -180,6 +200,7 @@ class BannerCarouselView @JvmOverloads constructor(
             this.centerScaleFactor = max(scale, 1f)
         }
         fun setItemAspectRatio(ratio: String) = apply { this.aspectRatio = ratio }
+        fun setScalePivot(pivot: ScalePivotType) = apply { this.scalePivot = pivot }
         fun setImageLoader(loader: BannerImageLoader) = apply { this.imageLoader = loader }
         fun setOnItemClickListener(listener: ((Int, BannerModel) -> Unit)?) = apply {
             this.onItemClickListener = listener
@@ -202,6 +223,7 @@ class BannerCarouselView @JvmOverloads constructor(
                 edgeVisibleFraction = edgeVisibleFraction,
                 centerScaleFactor = centerScaleFactor,
                 aspectRatio = aspect,
+                scalePivot = scalePivot,
                 imageLoader = loader,
                 onItemClickListener = onItemClickListener,
                 onPageChangeListener = onPageChangeListener
