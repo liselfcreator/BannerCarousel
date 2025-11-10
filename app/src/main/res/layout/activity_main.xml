@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="172dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/bg_new_user_read" />
+
+    <RelativeLayout
+        android:id="@+id/llTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="44dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/imageClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_new_user_onboard_close" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="suggested_for_you"
+            android:textColor="#111111"
+            android:textSize="19sp" />
+
+    </RelativeLayout>
+
+    <com.liselfcreator.mediapermissiondevapplication.myapplication.ViewPager2Container
+        android:id="@+id/view_pager2_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llTopBar"
+        android:layout_marginTop="17dp">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.liselfcreator.mediapermissiondevapplication.myapplication.ViewPager2Container>
+
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/ImgView"
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:layout_below="@+id/view_pager2_container"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        app:round="8dp" />
+</RelativeLayout>
