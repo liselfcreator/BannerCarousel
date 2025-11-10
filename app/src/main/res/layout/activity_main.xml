@@ -45,25 +45,19 @@
 
     </RelativeLayout>
 
-    <com.liselfcreator.mediapermissiondevapplication.myapplication.ViewPager2Container
-        android:id="@+id/view_pager2_container"
+    <com.liselfcreator.bannercarousel.BannerCarouselView
+        android:id="@+id/banner_carousel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/llTopBar"
-        android:layout_marginTop="17dp">
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.liselfcreator.mediapermissiondevapplication.myapplication.ViewPager2Container>
+        android:layout_marginTop="17dp" />
 
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/ImgView"
         android:layout_width="300dp"
         android:layout_height="400dp"
-        android:layout_below="@+id/view_pager2_container"
+        android:layout_below="@+id/banner_carousel"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginHorizontal="4dp"

@@ -1,0 +1,15 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/jismith/Documents/dev/github/sdk/BannerCarousel/banner-carousel-sdk/src/main/AndroidManifest.xml:2:1-56
+INJECTED from /Users/jismith/Documents/dev/github/sdk/BannerCarousel/banner-carousel-sdk/src/main/AndroidManifest.xml:2:1-56
+	package
+		ADDED from /Users/jismith/Documents/dev/github/sdk/BannerCarousel/banner-carousel-sdk/src/main/AndroidManifest.xml:2:11-53
+		INJECTED from /Users/jismith/Documents/dev/github/sdk/BannerCarousel/banner-carousel-sdk/src/main/AndroidManifest.xml
+uses-sdk
+INJECTED from /Users/jismith/Documents/dev/github/sdk/BannerCarousel/banner-carousel-sdk/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/jismith/Documents/dev/github/sdk/BannerCarousel/banner-carousel-sdk/src/main/AndroidManifest.xml
+INJECTED from /Users/jismith/Documents/dev/github/sdk/BannerCarousel/banner-carousel-sdk/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/jismith/Documents/dev/github/sdk/BannerCarousel/banner-carousel-sdk/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/jismith/Documents/dev/github/sdk/BannerCarousel/banner-carousel-sdk/src/main/AndroidManifest.xml

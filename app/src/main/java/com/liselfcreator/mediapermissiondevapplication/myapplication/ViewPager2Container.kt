@@ -7,11 +7,7 @@ import android.widget.RelativeLayout
 import androidx.viewpager2.widget.ViewPager2
 import kotlin.math.abs
 
-/**
- * @author zhangpan
- * @date 2020/12/28
- * 处理ViewPager2嵌套引起的滑动冲突，包括竖直滑动与水平滑动。
- */
+
 class ViewPager2Container @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     RelativeLayout(context, attrs, defStyleAttr) {
 

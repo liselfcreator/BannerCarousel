@@ -1,0 +1,16 @@
+R_DEF: Internal format may change without notice
+local
+drawable bg_banner_bottom
+drawable ic_completed
+drawable ic_default_icon_placeholder
+drawable ic_eye
+drawable ic_ongoing
+drawable ic_star
+id bottom_layout
+id image_book_completed
+id img_banner
+id readerNumView
+id readerStarView
+layout item_banner_carousel_page
+string bcv_default_score
+string bcv_default_views

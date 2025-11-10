@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.liselfcreator.bannercarousel.R
 
 /**
  * 轮播卡片适配器，支持无限循环、可选顶部状态和底部信息。
@@ -15,7 +15,8 @@ internal class BannerCarouselAdapter(
     private val data: List<BannerModel>,
     private val showStatus: Boolean,
     private val showBottom: Boolean,
-    private val onItemClickListener: ((position: Int, model: BannerModel) -> Unit)?
+    private val onItemClickListener: ((position: Int, model: BannerModel) -> Unit)?,
+    private val imageLoader: BannerImageLoader
 ) : RecyclerView.Adapter<BannerCarouselAdapter.PagerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
@@ -30,17 +31,14 @@ internal class BannerCarouselAdapter(
         val realPosition = getRealPosition(position, data.size)
         val model = data.getOrNull(realPosition) ?: return
 
-        Glide.with(holder.itemView.context)
-            .load(model.imgUrl)
-            .placeholder(R.drawable.ic_default_icon_placeholder)
-            .into(holder.bannerImage)
+        imageLoader.load(holder.bannerImage, model.imgUrl, R.drawable.ic_default_icon_placeholder)
 
         if (showStatus) {
             holder.bookComplete.visibility = View.VISIBLE
             holder.bookComplete.setImageResource(
                 when (model.status) {
-                    BannerStatus.COMPLETED -> R.drawable.ic_status_completed
-                    BannerStatus.ONGOING -> R.drawable.ic_status_ongoing
+                    BannerStatus.COMPLETED -> R.drawable.ic_completed
+                    BannerStatus.ONGOING -> R.drawable.ic_ongoing
                 }
             )
         } else {
@@ -49,8 +47,10 @@ internal class BannerCarouselAdapter(
 
         if (showBottom) {
             holder.bottomLayout.visibility = View.VISIBLE
-            holder.readerStarView.text = model.score ?: holder.itemView.context.getString(R.string.bcv_default_score)
-            holder.readerNumView.text = model.views ?: holder.itemView.context.getString(R.string.bcv_default_views)
+            holder.readerStarView.text =
+                model.score ?: holder.itemView.context.getString(R.string.bcv_default_score)
+            holder.readerNumView.text =
+                model.views ?: holder.itemView.context.getString(R.string.bcv_default_views)
         } else {
             holder.bottomLayout.visibility = View.GONE
         }

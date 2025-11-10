@@ -51,7 +51,6 @@ dependencies {
     implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.material)
-    implementation("com.github.bumptech.glide:glide:4.15.1")
 }
 
 afterEvaluate {

@@ -48,34 +48,63 @@ Banner Carousel SDK 提供一个基于 `ViewPager2` 的五卡轮播效果，支�
    )
    ```
 
-4. **初始化轮播**
-   ```kotlin
-   BannerCarousel.with(viewPager2)
-       .setData(banners)
-       .showStatus(true)   // 控制顶部完结徽标
-       .showBottom(true)   // 控制底部评分/观看人数
-       .setOnItemClickListener { position, model ->
-           // 处理点击事件
-       }
-       .build()
+4. **布局中引用自定义 View**
+   ```xml
+   <com.liselfcreator.bannercarousel.BannerCarouselView
+       android:id="@+id/banner_carousel"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content" />
    ```
 
-5. **监听页码变化（可选，用于同步其他 UI）**
+5. **在页面中配置**
    ```kotlin
-   viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-       override fun onPageSelected(position: Int) {
-           val realIndex = ((position % banners.size) + banners.size) % banners.size
-           val model = banners[realIndex]
-           // 同步背景图、标题等
+   bannerCarouselView.setup {
+       setData(banners)
+       showStatus(true)     // 顶部状态徽标
+       showBottom(true)     // 底部评分/阅读信息
+       setItemSpacingDp(17) // 卡片间距，默认 17dp
+       setEdgeVisibleFraction(0.2f)  // 首尾露出比例，默认 0.2
+       setCenterScaleFactor(1.8f)    // 中心卡放大倍数，默认 1.8
+       setItemAspectRatio("3:4")     // 卡片宽高比，默认 3:4
+       setImageLoader { imageView, url, placeholder ->
+           Glide.with(imageView)
+               .load(url)
+               .placeholder(placeholder)
+               .into(imageView)
        }
-   })
+       setOnPageChangeListener { index, model ->
+           // 页面切换回调，可同步背景、标题等
+       }
+       setOnItemClickListener { position, model ->
+           // 处理点击事件
+       }
+   }
    ```
 
 ## Builder 参数说明
 - `setData(List<BannerModel>)`：必填，轮播数据列表。
 - `showStatus(Boolean)`：是否显示顶部完结/连载徽标，默认 `true`。
 - `showBottom(Boolean)`：是否显示底部评分与观看人数，默认 `true`。
+- `setItemSpacingDp(Int)`：卡片间距（dp），默认 `17`。
+- `setEdgeVisibleFraction(Float)`：首尾可见宽度占正常卡片宽度的比例，默认 `0.2f`。
+- `setCenterScaleFactor(Float)`：中心卡片放大倍数，默认 `1.8f`。
+- `setItemAspectRatio(String)`：卡片宽高比，格式如 `"3:4"`，默认 `3:4`。
+- `setImageLoader(BannerImageLoader)`：图片加载回调，必须由宿主提供。
 - `setOnItemClickListener((Int, BannerModel) -> Unit)`：点击回调，可选。
+- `setOnPageChangeListener((Int, BannerModel) -> Unit)`：页面切换回调，可选。
+
+| 方法 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| `setData` | `List<BannerModel>` | — | 必填，轮播数据列表 |
+| `showStatus` | `Boolean` | `true` | 是否显示顶部完结/连载徽标 |
+| `showBottom` | `Boolean` | `true` | 是否显示底部评分与观看人数 |
+| `setItemSpacingDp` | `Int` | `17` | 卡片间距（dp） |
+| `setEdgeVisibleFraction` | `Float` | `0.2f` | 首尾可见宽度 / 正常卡片宽度 |
+| `setCenterScaleFactor` | `Float` | `1.8f` | 中心卡片放大倍数 |
+| `setItemAspectRatio` | `String` | `3:4` | 卡片宽高比（宽:高） |
+| `setImageLoader` | `BannerImageLoader` | — | 必填，负责加载封面图 |
+| `setOnItemClickListener` | `(Int, BannerModel) -> Unit` | `null` | 卡片点击回调 |
+| `setOnPageChangeListener` | `(Int, BannerModel) -> Unit` | `null` | 页面切换回调 |
 
 ## BannerModel 字段
 | 字段 | 类型 | 说明 |
