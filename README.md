@@ -2,6 +2,13 @@
 
 Banner Carousel SDK 提供一个基于 `ViewPager2` 的五卡轮播效果，支持中间卡片放大、左右卡片缩小露出、可选的顶部状态徽标与底部信息栏。SDK 以 `Builder` 方式初始化，方便集成到任意应用中。
 
+![20251110-190112.gif](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/a0e7e40f720f434ea6cdb5ab4ba3b0eb~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgYXBw5Ye65rW35Yib5pS26ICB5p2O:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMjU5NDUwMzE2ODg5MjcxMSJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1763428127&x-orig-sign=h%2BroBkfaQ3egCe%2FaSIPUdMaTy0Q%3D)
+
+
+![20251110-190915.gif](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/d93453e0006d4a5880c92b846725da72~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgYXBw5Ye65rW35Yib5pS26ICB5p2O:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMjU5NDUwMzE2ODg5MjcxMSJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1763428127&x-orig-sign=j2iPlqfjxN4eG7H6jOP5LfzFpSQ%3D)
+
+
+
 ## 功能特性
 - 视差式的卡片轮播，中间卡片放大 1.8x，其余卡片缩放至正常尺寸。
 - 支持无限循环滚动与预加载，保持 5 个可见元素。
